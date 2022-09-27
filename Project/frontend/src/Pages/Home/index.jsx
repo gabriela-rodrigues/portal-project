@@ -6,6 +6,7 @@ import Footer from "../../Components/Footer";
 import {IoAddOutline} from "react-icons/io5";
 import './style.css';
 import { useEffect } from "react";
+import api from "../../Services/api";
 
 export default function Home(){
     const [data, setData] = useState([])
@@ -13,38 +14,11 @@ export default function Home(){
     let params = useNavigate()
 
     useEffect(()=>{
-        setData([
-            {
-                'title' : 'Projeto1',
-                'description' : 'Lorem ipsum dolor, sit amet consecteturadipisicing elit. Quo laudantium iusto...',
-                'link_github' : 'https://github.com/gabriela-rodrigues',
-            },
-            {
-                'title' : 'Projeto2',
-                'description' : 'Lorem ipsum dolor, sit amet consecteturadipisicing elit. Quo laudantium iusto...',
-                'link_github' : 'https://github.com/gabriela-rodrigues',
-            },
-            {
-                'title' : 'Projeto3',
-                'description' : 'Lorem ipsum dolor, sit amet consecteturadipisicing elit. Quo laudantium iusto...',
-                'link_github' : 'https://github.com/gabriela-rodrigues',
-            },
-            {
-                'title' : 'Projeto4',
-                'description' : 'Lorem ipsum dolor, sit amet consecteturadipisicing elit. Quo laudantium iusto...',
-                'link_github' : 'https://github.com/gabriela-rodrigues',
-            },   
-            {
-                'title' : 'Projeto5',
-                'description' : 'Lorem ipsum dolor, sit amet consecteturadipisicing elit. Quo laudantium iusto...',
-                'link_github' : 'https://github.com/gabriela-rodrigues',
-            },
-            {
-                'title' : 'Projeto6',
-                'description' : 'Lorem ipsum dolor, sit amet consecteturadipisicing elit. Quo laudantium iusto...',
-                'link_github' : 'https://github.com/gabriela-rodrigues',
-            },
-        ])
+        api.get('/list').then((response) => {
+        console.log(response);
+        setData(response.data)
+    })
+        setData([])
     },[])
     
 

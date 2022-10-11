@@ -15,6 +15,7 @@ import FormControl, { useFormControl } from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import FormHelperText from '@mui/material/FormHelperText';
 import Footer from "../../Components/Footer";
+import api from '../../Services/api';
 import './style.css';
 
 export default function Studio(){
@@ -24,6 +25,16 @@ export default function Studio(){
     let params = useNavigate()
 
     const handleCardCreate = async () => {
+        let name = document.querySelector('#input_name').value
+        let description = document.querySelector('#input_description').value
+        let link = document.querySelector('#input_link').value
+        api.post("/add", {
+            "title": name,
+            "description": description,
+            "link_github": link
+        }).then((response) => {
+            console.log(response)
+        })
 
         $("#loading").show()
         const timer = setInterval(() => {
@@ -87,15 +98,15 @@ export default function Studio(){
                     '& > :not(style)': { m: 0, display: 'flex', width:'350px'  },
                     }}component="form" noValidate autoComplete="off">
                     <FormControl sx={{ width: '25ch' }}>
-                    <OutlinedInput placeholder="Insira o nome do repositório" />
+                    <OutlinedInput id="input_name" placeholder="Insira o nome do repositório" />
                         <MyFormHelperText />
                     </FormControl>
                     <FormControl sx={{ width: '25ch' }}>
-                    <OutlinedInput placeholder="Insira a descrição do repositório" />
+                    <OutlinedInput id="input_description" placeholder="Insira a descrição do repositório" />
                         <MyFormHelperText />
                     </FormControl>
                     <FormControl sx={{ width: '25ch' }}>
-                    <OutlinedInput placeholder="Insira o link do repositório" />
+                    <OutlinedInput id="input_link" placeholder="Insira o link do repositório" />
                         <MyFormHelperText />
                     </FormControl>
                 </Box>
